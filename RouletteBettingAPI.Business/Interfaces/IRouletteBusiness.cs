@@ -8,6 +8,8 @@ namespace RouletteBettingAPI.Business.Interfaces
 {
     public interface IRouletteBusiness
     {
-        Task<RouletteModel> CreateRouletteRedisBusiness();
+        //Task<RouletteModel> CreateRouletteRedisBusiness();
+        Task<long> CreateRouletteBusiness();
+        void RouletteOpeningByIDBusiness(int idRoulette);
     }
 }
