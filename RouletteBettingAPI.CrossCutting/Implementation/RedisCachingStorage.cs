@@ -17,9 +17,7 @@ namespace RouletteBettingAPI.CrossCutting.Implementation
             string primaryEndpoint = "masiv-redis-cache.a9gxo3.ng.0001.use2.cache.amazonaws.com:6379";
             string readerEndpoint = "masiv-redis-cache-ro.a9gxo3.ng.0001.use2.cache.amazonaws.com:6379";
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect($"{primaryEndpoint},{readerEndpoint}");
-            IDatabase db = redis.GetDatabase();
-            //bool result = db.StringSet("my-key", "my-value", TimeSpan.FromSeconds(600), When.Always, CommandFlags.PreferMaster);
-            //string value = db.StringGet("my-key");
+            IDatabase db = redis.GetDatabase();            
             return db;
         }
         public RouletteModel GetRouletteFromRedis(int id)

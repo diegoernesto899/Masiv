@@ -81,7 +81,7 @@ namespace RouletteBettingAPI.Controllers
         }
 
         [HttpPost("PlaceBet")]
-        public IActionResult MakeBet(RequestBetRouletteModel betObject)
+        public IActionResult PlaceBet(RequestBetRouletteModel betObject)
         {
             try
             {

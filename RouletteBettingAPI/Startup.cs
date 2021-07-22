@@ -23,7 +23,7 @@ namespace RouletteBettingAPI
             services.AddControllers();
             services.AddScoped<IRouletteBusiness, RouletteBusiness>();
             services.AddScoped<IValidParametersRequestEndpoints, ValidParametersRequestEndpoints>();
-            services.AddScoped<IRedisCachingStorage, RedisCachingStorage>();
+            services.AddSingleton<IRedisCachingStorage, RedisCachingStorage>();
 
             services.AddSwaggerGen(swagger =>
             {
