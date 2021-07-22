@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RouletteBettingAPI.Business.Implementation;
 using RouletteBettingAPI.Business.Interfaces;
+using RouletteBettingAPI.CrossCutting.Implementation;
+using RouletteBettingAPI.CrossCutting.Interfaces;
 
 namespace RouletteBettingAPI
 {
@@ -20,6 +22,9 @@ namespace RouletteBettingAPI
         {
             services.AddControllers();
             services.AddScoped<IRouletteBusiness, RouletteBusiness>();
+            services.AddScoped<IValidParametersRequestEndpoints, ValidParametersRequestEndpoints>();
+            services.AddScoped<IRedisCachingStorage, RedisCachingStorage>();
+
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo

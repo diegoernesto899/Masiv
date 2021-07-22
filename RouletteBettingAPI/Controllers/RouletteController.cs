@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using RouletteBettingAPI.Business.Implementation;
 using RouletteBettingAPI.Business.Interfaces;
 using RouletteBettingAPI.Business.Model;
+using RouletteBettingAPI.CrossCutting.Model;
 using System;
 using System.Threading.Tasks;
 
@@ -15,6 +14,7 @@ namespace RouletteBettingAPI.Controllers
     {
         #region PrivateMethos
         private readonly IRouletteBusiness _accessBusinessLayer;
+        private readonly IValidParametersRequestEndpoints _validParameters;
         private readonly ILogger<RouletteController> _logger;
 
         private void CatchErrorLog(Exception ex)
@@ -28,14 +28,15 @@ namespace RouletteBettingAPI.Controllers
         }
         #endregion
         #region public methods
-        public RouletteController(IRouletteBusiness accesBusinessLayer, ILogger<RouletteController> logger)
+        public RouletteController(IRouletteBusiness accessBusinessLayer, ILogger<RouletteController> logger, IValidParametersRequestEndpoints validParameters)
         {
-            _accessBusinessLayer = accesBusinessLayer ?? throw new ArgumentNullException(nameof(accesBusinessLayer));
-            _logger = logger;
+            _validParameters = validParameters ?? throw new ArgumentNullException(nameof(validParameters));
+            _accessBusinessLayer = accessBusinessLayer ?? throw new ArgumentNullException(nameof(accessBusinessLayer));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpPost]
-        public async Task<ActionResult<RouletteModel>> CreateRoulette()
+        [HttpPost("CreateRoulette")]
+        public async Task<ActionResult<int>> CreateRoulette()
         {
             try
             {
@@ -57,7 +58,7 @@ namespace RouletteBettingAPI.Controllers
 
         }
 
-        [HttpPut("{idRoulette}")]
+        [HttpPut("OpenRoulette")]
         public IActionResult OpenRouletteByID(int idRoulette)
         {
             try
@@ -79,10 +80,23 @@ namespace RouletteBettingAPI.Controllers
             }
         }
 
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpPost("PlaceBet")]
+        public IActionResult MakeBet(RequestBetRouletteModel betObject)
+        {
+            try
+            {
+                var foundErrorInValidations = _validParameters.checkParametersOfBetRequest(betObject);
+                if (!foundErrorInValidations.Equals(string.Empty))
+                    return BadRequest(foundErrorInValidations);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}"); ;
+            }
+
+        }
         #endregion
 
     }

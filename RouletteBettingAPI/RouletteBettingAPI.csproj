@@ -13,6 +13,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RouletteBettingAPI.Business\RouletteBettingAPI.Business.csproj" />
+    <ProjectReference Include="..\RouletteBettingAPI.CrossCutting\RouletteBettingAPI.CrossCutting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://docs.renovatebot.com/renovate-schema.json" /></VisualStudio></ProjectExtensions>

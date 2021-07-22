@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RouletteBettingAPI.CrossCutting\RouletteBettingAPI.CrossCutting.csproj" />
     <ProjectReference Include="..\RouletteBettingAPI.DataAccess\RouletteBettingAPI.DataAccess.csproj" />
   </ItemGroup>
 
