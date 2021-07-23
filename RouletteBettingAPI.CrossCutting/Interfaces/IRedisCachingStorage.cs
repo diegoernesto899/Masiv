@@ -7,8 +7,8 @@ namespace RouletteBettingAPI.CrossCutting.Interfaces
 {
     public interface IRedisCachingStorage
     {
-        RouletteModel GetRouletteFromRedis(int id);
-        RouletteModel AddRouletteObjectToRedis(RouletteModel roulette);
+        //RouletteModel GetRouletteFromRedis(int id);
+        //RouletteModel AddRouletteObjectToRedis(RouletteModel roulette);
 
     }
 }

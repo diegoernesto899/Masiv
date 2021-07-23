@@ -6,9 +6,10 @@ namespace RouletteBettingAPI.CrossCutting.Model
 {
     public class RequestBetRouletteModel
     {
-        public int numberBetRoulette { get; set; }
-        public string colorBetRoulette { get; set; }
-        public double stakeValue { get; set; }
+        public int numberBet { get; set; }
+        public string colorBet { get; set; }
+        public double moneyBet { get; set; }
         public int idRoulette { get; set; }
+        public int idCustomer { get; set; }
     }
 }

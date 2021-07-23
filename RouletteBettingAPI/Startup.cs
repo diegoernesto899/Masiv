@@ -8,6 +8,7 @@ using RouletteBettingAPI.Business.Implementation;
 using RouletteBettingAPI.Business.Interfaces;
 using RouletteBettingAPI.CrossCutting.Implementation;
 using RouletteBettingAPI.CrossCutting.Interfaces;
+using StackExchange.Redis;
 
 namespace RouletteBettingAPI
 {
@@ -34,10 +35,8 @@ namespace RouletteBettingAPI
                     Description = Configuration.GetValue<string>("SwaggerSettings: Description"),
                 });
             });
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = Configuration.GetValue<string>("CacheSettings: ConnectionString");
-            });
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(Configuration.GetValue<string>("CacheSettings:ConnectionString"));
+            services.AddScoped(s => redis.GetDatabase());                
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

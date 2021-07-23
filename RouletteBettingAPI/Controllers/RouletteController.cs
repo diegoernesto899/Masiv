@@ -80,19 +80,20 @@ namespace RouletteBettingAPI.Controllers
             }
         }
 
-        [HttpPost("PlaceBet")]
-        public IActionResult PlaceBet(RequestBetRouletteModel betObject)
+        [HttpPost("MadeBet")]
+        public IActionResult MadeBet(RequestBetRouletteModel betRequest)
         {
             try
             {
-                var foundErrorInValidations = _validParameters.checkParametersOfBetRequest(betObject);
+                var foundErrorInValidations = _validParameters.checkParametersOfBetRequest(betRequest);
                 if (!foundErrorInValidations.Equals(string.Empty))
                     return BadRequest(foundErrorInValidations);
-
-                return Ok();
+                
+                return Ok(_accessBusinessLayer.CreateBetInRouletteBusiness(betRequest));
             }
             catch (Exception ex)
             {
+                CatchErrorLog(ex);
                 return StatusCode(500, $"Internal server error: {ex}"); ;
             }
 
